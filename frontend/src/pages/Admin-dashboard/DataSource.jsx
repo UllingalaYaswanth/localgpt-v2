@@ -35,7 +35,7 @@
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+//     const accessToken = 'enter access token'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -208,7 +208,7 @@
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+//     const accessToken = 'enter access token'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -394,7 +394,7 @@ export function DataSource() {
   };
 
   const handleDropboxUpload = async (file, filePath) => {
-    const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+    const accessToken = 'enter access token'; // Replace with your Dropbox access token
     const dbx = new Dropbox.Dropbox({ accessToken });
 
     try {

@@ -39,7 +39,7 @@
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+//     const accessToken = 'enter access token'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -93,7 +93,7 @@
 
 //   // Fetch documents from Dropbox
 //   async function fetchDocuments() {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your actual access token
+//     const accessToken = 'enter access token'; // Replace with your actual access token
 //     const dbx = axios.create({
 //       baseURL: 'https://api.dropboxapi.com/2',
 //       headers: {
@@ -147,7 +147,7 @@
 //   // Function to handle document click (open in new tab)
 //   const handleDocumentClick = async (documentPath) => {
 //     try {
-//       const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your actual access token
+//       const accessToken = 'enter access token'; // Replace with your actual access token
 //       const dbx = axios.create({
 //         baseURL: 'https://api.dropboxapi.com/2',
 //         headers: {
@@ -406,7 +406,7 @@ export function Docs() {
   };
 
   const handleDropboxUpload = async () => {
-    const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+    const accessToken = 'enter access token'; // Replace with your Dropbox access token
     const dbx = new Dropbox.Dropbox({ accessToken });
 
     for (const file of files) {
@@ -460,7 +460,7 @@ export function Docs() {
 
   // Fetch documents from Dropbox
   async function fetchDocuments() {
-    const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your actual access token
+    const accessToken = 'enter access token'; // Replace with your actual access token
     const dbx = axios.create({
       baseURL: 'https://api.dropboxapi.com/2',
       headers: {
@@ -764,7 +764,7 @@ export default Docs;
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+//     const accessToken = 'enter access token'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -1083,7 +1083,7 @@ export default Docs;
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B4xVVSrSriiWuidIlbd9TQJZbqEakOLR8Q22JLXzeDjrLXD4AanZjwDj0Kc0b7RVSCxxm97_rON7TiSGkqhIYXH0hhTxs1Ah_1khQDIlCN3yXr5ZxR-MgapsSmLqWTsZEfq4eeHrPyif3whGWB9gw_E'; // Replace with your Dropbox access token
+//     const accessToken = 'enter access token'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
