@@ -536,7 +536,7 @@ function AddUserForm({ isOpen, onClose, onUserAdded }) {
       formData.append('profileImage', profileImage);
       formData.append('designation', designation);
 
-      const response = await axios.post('http://localhost:5000/register', formData, {
+      const response = await axios.post('http://localhost:5000/api/users/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -617,7 +617,7 @@ export function Acc() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/users');
+        const response = await axios.get('http://localhost:5000/api/users');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -757,3 +757,5 @@ export function Acc() {
 }
 
 export default Acc;
+
+

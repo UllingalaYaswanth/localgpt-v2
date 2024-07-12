@@ -497,7 +497,7 @@ const Groups = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/users');
+      const response = await axios.get('http://localhost:5000/api/users');
       const usersData = response.data.map(user => ({ value: user._id, label: `${user.firstName} ${user.lastName} (${user.emailAddress})` }));
       setUsers(response.data);
       setUserOptions(usersData);

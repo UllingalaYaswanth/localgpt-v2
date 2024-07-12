@@ -43,7 +43,7 @@ export function Acc() {
 
   // Function to handle Dropbox file upload
   const handleDropboxUpload = async () => {
-    const accessToken = 'enter access token'; // Replace with your Dropbox access token
+    const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
     const dbx = new Dropbox.Dropbox({ accessToken });
 
     for (const file of files) {

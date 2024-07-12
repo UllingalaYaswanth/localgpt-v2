@@ -211,7 +211,8 @@ const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleD
   return (
     <div className="sidebar " style={{ width: '300px' }}>
       <div className="user-details p-3">
-        <img src="../src/assets/react.svg" className="user-image mb-2" alt="User" />
+      <img src="/logo-spotify.svg" className="user-image mb-2" alt="User" />
+
         <div className="user-info">
           <p><strong>{user.name}</strong></p>
         </div>
