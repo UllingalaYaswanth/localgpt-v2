@@ -6,37 +6,61 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import axios from 'axios';
+import { projectsTableData } from "@/data"; // Import your access_level metadata
 
-export function Acc() {
+export function Docs() {
   const [documents, setDocuments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [files, setFiles] = useState([]);
+  const [error, setError] = useState(null);
 
-
-  // Fetch documents from the backend
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/files');
-        const fetchedDocuments = response.data.map(document => ({
-          ...document,
-          createdAt: new Date(document.createdAt).toLocaleString(), // Format createdAt date if needed
-          accessLevel: document.level // Assign level data to accessLevel
-        }));
-        setDocuments(fetchedDocuments);
-      } catch (error) {
-        console.error('Error fetching documents:', error);
+  // Fetch documents from Dropbox
+  async function fetchDocuments() {
+    const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; 
+    const dbx = axios.create({
+      baseURL: 'https://api.dropboxapi.com/2',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
       }
-    };
+    });
 
+    const paths = ['/localgpt/levelA', '/localgpt/levelB', '/localgpt/levelC'];
+
+    try {
+      const promises = paths.map(async (path) => {
+        const response = await dbx.post('/files/list_folder', {
+          path: path
+        });
+
+        const documentsInFolder = response.data.entries.map(entry => ({
+          ...entry,
+          access_level: getAccessLevel(entry.name) // Assuming getAccessLevel is a function to retrieve access level
+        }));
+
+        return documentsInFolder;
+      });
+
+      const results = await Promise.all(promises);
+      const allDocuments = results.flat(); // Flatten the array of arrays
+
+      setDocuments(allDocuments);
+    } catch (error) {
+      console.error('Error fetching documents from Dropbox:', error);
+      setError('Failed to fetch documents. Please try again later.'); // Set error state
+    }
+  }
+
+  useEffect(() => {
     fetchDocuments();
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
+  }, []);
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFiles([selectedFile]);
+  // Function to retrieve access level based on document name
+  const getAccessLevel = (documentName) => {
+    const matchedDocument = projectsTableData.find(doc => doc.name === documentName);
+    return matchedDocument ? matchedDocument.access_level : 'Unknown'; // Return access level or default value
   };
-  // Format timestamp function (optional if already formatted in backend)
+
+  // Format timestamp function
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString();
@@ -45,19 +69,31 @@ export function Acc() {
   // Function to handle document click (download from Dropbox)
   const handleDocumentClick = async (documentPath) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/files/get_temp_link', {
-        documentPath
+      const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your actual access token
+      const response = await axios.post('https://content.dropboxapi.com/2/files/download', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Dropbox-API-Arg': JSON.stringify({
+            path: documentPath
+          }),
+          'Content-Type': 'application/octet-stream'
+        },
+        responseType: 'blob' // Ensure response is treated as a blob
       });
-
-      const documentUrl = response.data.link;
-
-      // Open the document in a new tab
-      window.open(documentUrl, '_blank');
+  
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', documentPath.split('/').pop()); // Set filename for download
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
     } catch (error) {
-      console.error('Error opening document:', error);
-      // Optionally, show a user-friendly error message here
+      console.error('Error downloading document:', error);
+      setError('Failed to download document. Please try again later.');
     }
   };
+  
 
   // Filtered table data based on search term
   const filteredTableData = documents.filter((document) =>
@@ -88,7 +124,12 @@ export function Acc() {
             </div>
           </CardHeader>
 
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          <CardBody className="overflow-x-scroll max-h-[745px] overflow-y-scroll px-0 pt-0 pb-2">
+            {error && (
+              <Typography variant="body" color="red" className="mb-2 ml-6">
+                {error}
+              </Typography>
+            )}
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr className="items-center">
@@ -116,6 +157,14 @@ export function Acc() {
                       Access Level
                     </Typography>
                   </th>
+                  <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
+                    <Typography
+                      variant="small"
+                      className="text-[11px] font-medium uppercase text-blue-gray-400"
+                    >
+                      Keyword
+                    </Typography>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +183,7 @@ export function Acc() {
                         variant="small"
                         className="text-xs font-medium text-blue-gray-600"
                       >
-                        {document.createdAt} {/* Display formatted createdAt date */}
+                        {formatDate(document.server_modified)}
                       </Typography>
                     </td>
                     <td className="py-3 px-5">
@@ -142,7 +191,15 @@ export function Acc() {
                         variant="small"
                         className="text-xs font-medium text-blue-gray-600"
                       >
-                        {document.accessLevel} {/* Display access level */}
+                        {document.access_level}
+                      </Typography>
+                    </td>
+                    <td className="py-3 px-5">
+                      <Typography
+                        variant="small"
+                        className="text-xs font-medium text-blue-gray-600"
+                      >
+                        {document.keyword}
                       </Typography>
                     </td>
                   </tr>
@@ -156,4 +213,4 @@ export function Acc() {
   );
 }
 
-export default Acc;
+export default Docs;

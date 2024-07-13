@@ -200,75 +200,176 @@
 // export default Sidebar;
 
 
+// import React from 'react';
+// import PropTypes from 'prop-types';
+// import '../index.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Dropdown, DropdownButton } from 'react-bootstrap';
+// import { FaEdit, FaArchive, FaTrash } from 'react-icons/fa';
+
+// const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleDelete, handleArchive }) => {
+//   return (
+//     <div className="sidebar " style={{ width: '300px' }}>
+//       <div className="user-details p-3">
+//         <img src="../src/assets/react.svg" className="user-image mb-2" alt="User" />
+//         <div className="user-info">
+//           <p><strong>{user.name}</strong></p>
+//         </div>
+//       </div>
+
+//       <button onClick={handleNewChat} className="btn border border-black newchat mt-5 mb-3">New Chat</button>
+//       <h2 className="px-3"><strong>History</strong></h2>
+//       <div className="history">
+//         <ul className="history-list list-unstyled px-3">
+//           {history.map((chatHistory, index) => (
+//             <li className="history-item d-flex justify-content-between align-items-center mb-2" key={index} onClick={() => loadChat(chatHistory)}>
+//               <span>{chatHistory.name || `Chat ${index + 1}`}</span>
+//               <DropdownButton
+//                 id={`dropdown-${index}`}
+//                 drop="end"
+//                 variant="secondary"
+//                 size="sm"
+//                 title=""
+//                 onClick={(event) => event.stopPropagation()}
+//               >
+//                 <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleRename(index); }}>
+//                   <FaEdit /> Rename
+//                 </Dropdown.Item>
+//                 <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleDelete(index); }}>
+//                   <FaTrash className="text-danger" /> Delete
+//                 </Dropdown.Item>
+//                 <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleArchive(index); }}>
+//                   <FaArchive /> Archive
+//                 </Dropdown.Item>
+//               </DropdownButton>
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
+
+// Sidebar.propTypes = {
+//   history: PropTypes.array,
+//   user: PropTypes.object,
+//   loadChat: PropTypes.func,
+//   handleNewChat: PropTypes.func,
+//   handleRename: PropTypes.func,
+//   handleDelete: PropTypes.func,
+//   handleArchive: PropTypes.func
+// };
+
+// Sidebar.defaultProps = {
+//   history: [],
+//   user: {},
+//   loadChat: () => {},
+//   handleNewChat: () => {},
+//   handleRename: () => {},
+//   handleDelete: () => {},
+//   handleArchive: () => {}
+// };
+
+// export default Sidebar;
+
+
+// import React from 'react';
+// import PropTypes from 'prop-types';
+// import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
+
+// const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleDelete, handleArchive }) => {
+//   return (
+//     <div className="bg-gray-200 w-64 h-full flex flex-col p-4">
+//       <div className="flex flex-col items-center space-x-4">
+//         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="Logo" className="w-12 h-12 mb-3 ps-1" />
+//         <h2 className="text-xl font-semibold">{user.name}</h2>
+//       </div>
+//       <Button className="mt-6 mb-4" color="lightBlue" onClick={handleNewChat}>New Chat</Button>
+//       <h3 className="text-xl font-semibold">History</h3>
+//       <div className="flex-1 overflow-y-auto mt-2">
+//         {history.map((chatHistory, index) => (
+//           <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-300" onClick={() => loadChat(chatHistory)}>
+//             <span>{chatHistory.name || `Chat ${index + 1}`}</span>
+//             <Menu>
+//               <MenuHandler>
+//                 <Button className="bg-transparent shadow-none px-2">
+//                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+//                   </svg>
+//                 </Button>
+//               </MenuHandler>
+//               <MenuList>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleRename(index); }}>Rename</MenuItem>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleDelete(index); }}>Delete</MenuItem>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleArchive(index); }}>Archive</MenuItem>
+//               </MenuList>
+//             </Menu>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// Sidebar.propTypes = {
+//   history: PropTypes.array.isRequired,
+//   user: PropTypes.object.isRequired,
+//   loadChat: PropTypes.func.isRequired,
+//   handleNewChat: PropTypes.func.isRequired,
+//   handleRename: PropTypes.func.isRequired,
+//   handleDelete: PropTypes.func.isRequired,
+//   handleArchive: PropTypes.func.isRequired
+// };
+
+// export default Sidebar;
+
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import './user.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
-import { FaEdit, FaArchive, FaTrash } from 'react-icons/fa';
+import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
 
 const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleDelete, handleArchive }) => {
   return (
-    <div className="sidebar " style={{ width: '300px' }}>
-      <div className="user-details p-3">
-      <img src="/logo-spotify.svg" className="user-image mb-2" alt="User" />
-
-        <div className="user-info">
-          <p><strong>{user.name}</strong></p>
-        </div>
+    <div className="bg-gray-200 w-64 h-full flex flex-col p-4">
+      <div className="flex flex-col items-center space-x-4">
+        <img src={user.image} alt="Logo" className="w-12 h-12 mb-3 ps-1 rounded" />
+        <h2 className="text-xl font-semibold">{`${user.name}`}</h2>
       </div>
-
-      <button onClick={handleNewChat} className="btn border border-black newchat mt-5 mb-3">New Chat</button>
-      <h2 className="px-3"><strong>History</strong></h2>
-      <div className="history">
-        <ul className="history-list list-unstyled px-3">
-          {history.map((chatHistory, index) => (
-            <li className="history-item d-flex justify-content-between align-items-center mb-2" key={index} onClick={() => loadChat(chatHistory)}>
-              <span>{chatHistory.name || `Chat ${index + 1}`}</span>
-              <DropdownButton
-                id={`dropdown-${index}`}
-                drop="end"
-                variant="secondary"
-                size="sm"
-                title=""
-                onClick={(event) => event.stopPropagation()}
-              >
-                <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleRename(index); }}>
-                  <FaEdit /> Rename
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleDelete(index); }}>
-                  <FaTrash className="text-danger" /> Delete
-                </Dropdown.Item>
-                <Dropdown.Item onClick={(event) => { event.stopPropagation(); handleArchive(index); }}>
-                  <FaArchive /> Archive
-                </Dropdown.Item>
-              </DropdownButton>
-            </li>
-          ))}
-        </ul>
+      <Button className="mt-6 mb-4" color="lightBlue" onClick={handleNewChat}>New Chat</Button>
+      <h3 className="text-xl font-semibold">History</h3>
+      <div className="flex-1 overflow-y-auto mt-2">
+        {history.map((chatHistory, index) => (
+          <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-300" onClick={() => loadChat(chatHistory)}>
+            <span>{chatHistory.name || `Chat ${index + 1}`}</span>
+            <Menu>
+              <MenuHandler>
+                <Button className="bg-transparent shadow-none px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </Button>
+              </MenuHandler>
+              <MenuList>
+                <MenuItem onClick={(event) => { event.stopPropagation(); handleRename(index); }}>Rename</MenuItem>
+                <MenuItem onClick={(event) => { event.stopPropagation(); handleDelete(index); }}>Delete</MenuItem>
+                <MenuItem onClick={(event) => { event.stopPropagation(); handleArchive(index); }}>Archive</MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 Sidebar.propTypes = {
-  history: PropTypes.array,
-  user: PropTypes.object,
-  loadChat: PropTypes.func,
-  handleNewChat: PropTypes.func,
-  handleRename: PropTypes.func,
-  handleDelete: PropTypes.func,
-  handleArchive: PropTypes.func
-};
-
-Sidebar.defaultProps = {
-  history: [],
-  user: {},
-  loadChat: () => {},
-  handleNewChat: () => {},
-  handleRename: () => {},
-  handleDelete: () => {},
-  handleArchive: () => {}
+  history: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+  loadChat: PropTypes.func.isRequired,
+  handleNewChat: PropTypes.func.isRequired,
+  handleRename: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleArchive: PropTypes.func.isRequired
 };
 
 export default Sidebar;

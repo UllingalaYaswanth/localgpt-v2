@@ -35,7 +35,7 @@
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
+//     const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -208,7 +208,7 @@
 //   };
 
 //   const handleDropboxUpload = async () => {
-//     const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
+//     const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your Dropbox access token
 //     const dbx = new Dropbox.Dropbox({ accessToken });
 
 //     for (const file of files) {
@@ -394,7 +394,7 @@ export function DataSource() {
   };
 
   const handleDropboxUpload = async (file, filePath) => {
-    const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
+    const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your Dropbox access token
     const dbx = new Dropbox.Dropbox({ accessToken });
 
     try {
@@ -461,7 +461,7 @@ export function DataSource() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: fileName, path_lower: path, location: tags }),
+        body: JSON.stringify({ name: fileName, path_lower: path, location: tags, level: selectedLevel }),
       });
 
       if (!response.ok) {
@@ -532,7 +532,7 @@ export function DataSource() {
               color="blue"
               label="Level"
               value={level}
-              onChange={(value) => setLevel(value)}
+              onChange={(value) => setLevel(value)} // Ensure this correctly sets the state
               required
             >
               <Option value="">Select level</Option>
@@ -540,6 +540,7 @@ export function DataSource() {
               <Option value="B">B</Option>
               <Option value="C">C</Option>
             </Select>
+
 
             <Button type="submit" color="blue">
               Upload

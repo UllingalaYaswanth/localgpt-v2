@@ -418,6 +418,416 @@
 // export default Groups;
 
 
+// import React, { useState, useEffect } from "react";
+// import {
+//   Typography,
+//   Card,
+//   CardHeader,
+//   CardBody,
+//   Button,
+//   Input,
+//   Dialog,
+//   DialogHeader,
+//   DialogBody,
+//   DialogFooter,
+//   Avatar,
+// } from "@material-tailwind/react";
+// import axios from "axios";
+// import Select from "react-select";
+
+// // UserDisplay Component
+// const UserDisplay = ({ user }) => {
+//   return (
+//     <div className="flex items-center gap-4">
+//       <Avatar
+//         src="https://via.placeholder.com/150"
+//         alt="User"
+//         size="sm"
+//         variant="rounded"
+//       />
+//       <div>
+//         <Typography
+//           variant="small"
+//           color="blue-gray"
+//           className="font-semibold"
+//         >
+//           {user.firstName} {user.lastName}
+//         </Typography>
+//         <Typography className="text-xs font-normal text-blue-gray-500">
+//           {user.emailAddress}
+//         </Typography>
+//         <Typography className="text-xs font-semibold text-blue-gray-600">
+//           {user.role}
+//         </Typography>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Groups Component
+// const Groups = () => {
+//   const [groups, setGroups] = useState([]);
+//   const [selectedGroup, setSelectedGroup] = useState(null);
+//   const [users, setUsers] = useState([]);
+//   const [documents, setDocuments] = useState([]);
+//   const [newGroup, setNewGroup] = useState({
+//     name: '',
+//     selectedUsers: [],
+//     selectedDocuments: [], 
+//     access_level: 'Private',
+//   });
+//   const [open, setOpen] = useState(false);
+//   const [documentsOptions, setDocumentsOptions] = useState([]);
+//   const [userOptions, setUserOptions] = useState([]);
+
+//   useEffect(() => {
+//     fetchGroups();
+//     fetchUsers();
+//     fetchDocuments();
+//   }, []);
+
+//   const fetchGroups = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/api/admin/groups');
+//       setGroups(response.data);
+//     } catch (error) {
+//       console.error('Error fetching groups:', error);
+//     }
+//   };
+
+//   const fetchUsers = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/api/users');
+//       const usersData = response.data.map(user => ({ value: user._id, label: `${user.firstName} ${user.lastName} (${user.emailAddress})` }));
+//       setUsers(response.data);
+//       setUserOptions(usersData);
+//     } catch (error) {
+//       console.error('Error fetching users:', error);
+//     }
+//   };
+
+//   const fetchDocuments = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/api/files');
+//       const documentsData = response.data.map(doc => ({ value: doc.name, label: doc.name }));
+//       setDocumentsOptions(documentsData);
+//     } catch (error) {
+//       console.error('Error fetching documents:', error);
+//     }
+//   };
+
+//   const handleOpen = () => setOpen(true);
+
+//   const handleClose = () => setOpen(false);
+
+//   const handleGroupClick = async (groupId) => {
+//     try {
+//       const response = await axios.get(`http://localhost:5000/api/admin/groups/${groupId}`);
+//       setSelectedGroup(response.data);
+//     } catch (error) {
+//       console.error('Error fetching group details:', error);
+//     }
+//   };
+
+//   const handleBackClick = () => {
+//     setSelectedGroup(null);
+//   };
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setNewGroup({...newGroup, [name]: value });
+//   };
+
+//   const handleUserSelectChange = (selectedOptions) => {
+//     setNewGroup({...newGroup, selectedUsers: selectedOptions.map((option) => option.value) });
+//   };
+  
+//   const handleDocumentSelectChange = (selectedOptions) => {
+//     const selectedDocumentNames = selectedOptions.map((option) => option.label);
+//     setNewGroup({...newGroup, selectedDocuments: selectedDocumentNames });
+//   };
+  
+//   const handleFormSubmit = async (e) => {
+//   e.preventDefault();
+
+//   const { name, selectedUsers, selectedDocuments, access_level } = newGroup;
+
+//   try {
+//     const response = await axios.post('http://localhost:5000/api/admin/groups', {
+//       name,
+//       users: selectedUsers.map((id) => ({ _id: id })), // Convert user IDs to {_id: id} format
+//       documents: selectedDocuments, // Use selected document names only
+//       access_level,
+//     });
+//     setGroups([...groups, response.data]);
+//     setNewGroup({
+//       name: '',
+//       selectedUsers: [],
+//       selectedDocuments: [], // Reset the state
+//       access_level: 'Private',
+//     });
+//     setOpen(false);
+//   } catch (error) {
+//     console.error('Error creating group:', error.response? error.response.data : error.message);
+//   }
+// };
+//   return (
+//     <div className="mt-12">
+//       {selectedGroup && (
+//         <Button
+//           color="indigo"
+//           onClick={handleBackClick}
+//           className="mb-4"
+//         >
+//           Back
+//         </Button>
+//       )}
+
+//       {!selectedGroup && (
+//         <div className="mb-4 grid grid-cols-1 gap-5 xl:grid-cols-1">
+//           <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-sm">
+//             <CardHeader
+//               floated={false}
+//               shadow={false}
+//               color="transparent"
+//               className="m-0 flex items-center justify-between p-6"
+//             >
+//               <div>
+//                 <Typography variant="h6" color="blue-gray" className="mb-1">
+//                   Groups
+//                 </Typography>
+//               </div>
+//               <div>
+//                 <Button color="indigo" onClick={handleOpen}>
+//                   Add Group
+//                 </Button>
+//               </div>
+//             </CardHeader>
+//             <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+//               <table className="w-full min-w-[640px] table-auto">
+//                 <thead>
+//                   <tr className="items-center">
+//                     {["Name", "Created On", "No. of Users", "No. of Docs"].map((el) => (
+//                       <th
+//                         key={el}
+//                         className="border-b border-blue-gray-50 py-3 px-6 text-left cursor-pointer"
+//                       >
+//                         <Typography
+//                           variant="small"
+//                           className="text-[11px] font-medium uppercase text-blue-gray-400"
+//                         >
+//                           {el}
+//                         </Typography>
+//                       </th>
+//                     ))}
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                 {groups.map((group) => (
+//                     <tr
+//                       key={group._id}
+//                       onClick={() => handleGroupClick(group._id)}
+//                       className="cursor-pointer"
+//                     >
+//                       <td className="py-3 px-5">
+//                         <Typography
+//                           variant="small"
+//                           className="text-xs font-medium text-blue-gray-600"
+//                         >
+//                           {group.name}
+//                         </Typography>
+//                       </td>
+//                       <td className="py-3 px-5">
+//                         <Typography
+//                           variant="small"
+//                           className="text-xs font-medium text-blue-gray-600"
+//                         >
+//                           {new Date(group.timestamp).toLocaleString()}
+//                         </Typography>
+//                       </td>
+//                       <td className="py-3 px-5">
+//                         <Typography
+//                           variant="small"
+//                           className="text-xs font-medium text-blue-gray-600"
+//                         >
+//                           {group.users? group.users.length : 'Loading...'}
+//                         </Typography>
+//                       </td>
+//                       <td className="py-3 px-5">
+//                         <Typography
+//                           variant="small"
+//                           className="text-xs font-medium text-blue-gray-600"
+//                         >
+//                           {group.documents? group.documents.length : 'Loading...'}
+//                         </Typography>
+//                       </td>
+//                     </tr>
+//                   ))}
+
+//                 </tbody>
+//               </table>
+//             </CardBody>
+//           </Card>
+//         </div>
+//       )}
+
+// {selectedGroup && (
+//   <div>
+//     <div className="mb-4 grid grid-cols-1 gap-5 xl:grid-cols-1">
+//       <Card>
+//         <CardHeader
+//           floated={false}
+//           shadow={false}
+//           color="transparent"
+//           className="m-0 flex items-center justify-between p-6"
+//         >
+//           <div>
+//             <Typography variant="h6" color="blue-gray" className="mb-1">
+//               Users
+//             </Typography>
+//           </div>
+//         </CardHeader>
+//         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+//           <table className="w-full min-w-[640px] table-auto">
+//             <thead>
+//               <tr>
+//                 {["Name", "Email", "Role"].map((el) => (
+//                   <th
+//                     key={el}
+//                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
+//                   >
+//                     <Typography
+//                       variant="small"
+//                       className="text-[11px] font-bold uppercase text-blue-gray-400"
+//                     >
+//                       {el}
+//                     </Typography>
+//                   </th>
+//                 ))}
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {selectedGroup.users.map((user) => (
+//                 <tr key={user._id}>
+//                   <td className="py-3px-5">
+//                     <UserDisplay user={user} />
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </CardBody>
+//       </Card>
+//     </div>
+//     <div className="mb-4 grid grid-cols-1 gap-5 xl:grid-cols-1">
+//       <Card>
+//         <CardHeader
+//           floated={false}
+//           shadow={false}
+//           color="transparent"
+//           className="m-0 flex items-center justify-between p-6"
+//         >
+//           <div>
+//             <Typography variant="h6" color="blue-gray" className="mb-1">
+//               Documents
+//             </Typography>
+//           </div>
+//         </CardHeader>
+//         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+//           <table className="w-full min-w-[640px] table-auto">
+//             <thead>
+//               <tr>
+//                 {["Name"].map((el) => (
+//                   <th
+//                     key={el}
+//                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
+//                   >
+//                     <Typography
+//                       variant="small"
+//                       className="text-[11px] font-bold uppercase text-blue-gray-400"
+//                     >
+//                       {el}
+//                     </Typography>
+//                   </th>
+//                 ))}
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {selectedGroup.documents.map((document) => (
+//                 <tr key={document}>
+//                   <td className="py-3px-5 pl-10">
+//                     <Typography
+//                       variant="small"
+//                       className="text-xs font-medium text-blue-gray-600"
+//                     >
+//                       {document}
+//                     </Typography>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </CardBody>
+//       </Card>
+//     </div>
+//   </div>
+// )}
+
+//       <Dialog open={open} onClose={handleClose}>
+//         <DialogHeader>Add New Group</DialogHeader>
+//         <DialogBody divider>
+//           <form onSubmit={handleFormSubmit} className="space-y-4">
+//             <Input
+//               label="Group Name"
+//               name="name"
+//               value={newGroup.name}
+//               onChange={handleInputChange}
+//               required
+//             />
+//             <Select
+//               isMulti
+//               name="users"
+//               options={userOptions}
+//               className="basic-multi-select"
+//               classNamePrefix="select"
+//               onChange={handleUserSelectChange}
+//               placeholder="Select Users"
+//             />
+//             <Select
+//               isMulti
+//               name="documents"
+//               options={documentsOptions}
+//               className="basic-multi-select"
+//               classNamePrefix="select"
+//               onChange={handleDocumentSelectChange}
+//               placeholder="Select Documents"
+//             />
+//             <Input
+//               type="text"
+//               label="Access Level"
+//               name="access_level"
+//               value={newGroup.access_level}
+//               onChange={handleInputChange}
+//               required
+//             />
+//             <div className="flex justify-end space-x-4">
+//               <Button variant="text" color="red" onClick={handleClose}>
+//                 Cancel
+//               </Button>
+//               <Button type="submit" color="green">
+//                 Save
+//               </Button>
+//             </div>
+//           </form>
+//         </DialogBody>
+//       </Dialog>
+//     </div>
+//   );
+// };
+
+// export default Groups;
+
+
 import React, { useState, useEffect } from "react";
 import {
   Typography,
@@ -555,8 +965,8 @@ const Groups = () => {
   try {
     const response = await axios.post('http://localhost:5000/api/admin/groups', {
       name,
-      users: selectedUsers.map((id) => ({ _id: id })), // Convert user IDs to {_id: id} format
-      documents: selectedDocuments, // Use selected document names only
+      users: selectedUsers.map((id) => ({ _id: id })), 
+      documents: selectedDocuments, 
       access_level,
     });
     setGroups([...groups, response.data]);

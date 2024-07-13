@@ -631,9 +631,10 @@ export function Acc() {
     setIsAddUserOpen(!isAddUserOpen);
   };
 
-  const navigateToProfile = () => {
-        navigate(`/dashboard/profile`);
-      };
+  const navigateToProfile = (user) => {
+    navigate(`/dashboard/profile`, { state: { userData: user } });
+
+};
 
   const handleUserAdded = (newUser) => {
     setUsers((prevUsers) => [...prevUsers, newUser]);
@@ -703,11 +704,21 @@ export function Acc() {
                         <div className="flex items-center gap-4">
                           <Avatar src={`http://localhost:5000/uploads/${profileImage}`} alt={firstName} size="sm" variant="rounded" />
                           <div>
-                            <Typography
+                          <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-semibold cursor-pointer"
-                              onClick={() => navigateToProfile()}
+                              onClick={() => navigateToProfile({
+                                firstName,
+                                lastName,
+                                emailAddress,
+                                role,
+                                profileImage,
+                                online,
+                                createdAt,
+                                _id,
+                                designation
+                              })}
                             >
                               {firstName} {lastName}
                             </Typography>

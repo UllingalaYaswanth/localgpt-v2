@@ -1,6 +1,6 @@
 export const projectsTableData = [
   {
-    img: "/img/team-4.jpeg",
+    img: "/img/team-2.jpeg",
     name: "Govind",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },
@@ -54,7 +54,7 @@ export const projectsTableData = [
     role : 'Admin'
   },
   {
-    img: "/img/team-4.jpeg",
+    img: "/img/team-2.jpeg",
     name: "Yaswanth",
     members: [
       { img: "/img/team-1.jpeg", name: "Romina Hadid" },

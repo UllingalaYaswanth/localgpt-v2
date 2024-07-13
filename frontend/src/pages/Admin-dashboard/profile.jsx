@@ -18,11 +18,14 @@ import {
   Cog6ToothIcon,
   PencilIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
 import { platformSettingsData, conversationsData, projectsData } from "@/data";
 
 export function Profile() {
+  const location = useLocation();
+  const userData = location.state?.userData;
+  console.log(userData)
   return (
     <>
       <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover	bg-center">
@@ -32,25 +35,27 @@ export function Profile() {
         <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-6">
-              <Avatar
-                src="/img/bruce-mars.jpeg"
-                alt="bruce-mars"
+            <Avatar
+                src={`http://localhost:5000/uploads/${userData.profileImage}`}
+                alt="User Avatar"
                 size="xl"
                 variant="rounded"
                 className="rounded-lg shadow-lg shadow-blue-gray-500/40"
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
+                  {userData.firstName} {userData.lastName}
                 </Typography>
                 <Typography
                   variant="small"
                   className="font-normal text-blue-gray-600"
                 >
-                  CEO / Co-Founder
+                  {userData.role} / {userData.designation}
                 </Typography>
               </div>
             </div>
+
+
             <div className="w-96">
               <Tabs value="app">
                 <TabsHeader>

@@ -332,7 +332,7 @@
 
 // // Route to fetch documents from Dropbox
 // app.get('/api/files', async (req, res) => {
-//   const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
+//   const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your Dropbox access token
 
 //   const dbx = axios.create({
 //     baseURL: 'https://api.dropboxapi.com/2',
@@ -535,7 +535,7 @@
 
 // // Route to fetch documents from Dropbox
 // app.get('/api/files', async (req, res) => {
-//   const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8'; // Replace with your Dropbox access token
+//   const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Replace with your Dropbox access token
 
 //   const dbx = axios.create({
 //     baseURL: 'https://api.dropboxapi.com/2',
@@ -764,7 +764,7 @@
 
 // // Route to fetch documents from Dropbox
 // app.get('/api/files', async (req, res) => {
-//   const accessToken = 'sl.B47xV-zNbI5GO9qGUPfud6s-9-w7flgmGF3bKtpZhw-mqAGKyfw0bdWiYLq5sU6iDu4yEhS62JGckOthzl7Ixt46aSeKJ02Na4ZQQ_2BrNOt7YFFTLjLuYBvl7W_rQTDLo-lo2xUrhNP-_2DDbsNbC8';
+//   const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI';
 
 //   const dbx = axios.create({
 //     baseURL: 'https://api.dropboxapi.com/2',
@@ -895,7 +895,7 @@ import fileRoutes from './routes/fileRoutes.js';
 
 // Use routes
 app.use('/api/users', userRoutes);
-app.use('/api/groups', groupRoutes);
+app.use('/api/admin', groupRoutes);
 app.use('/api/files', fileRoutes);
 
 const PORT = process.env.PORT || 5000;

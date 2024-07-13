@@ -7,6 +7,8 @@ import {
   RectangleStackIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Acc, Docs, Groups, DataSource,} from "@/pages/Admin-dashboard";
+import { Navigate } from "react-router-dom";
+
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -46,8 +48,10 @@ export const routes = [
         path: "/DataSource",
         element: <DataSource />,
       },
+      
     ],
   },
+  
 
   
 ];
