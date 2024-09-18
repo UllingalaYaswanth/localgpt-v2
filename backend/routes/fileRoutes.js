@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
 
 // Route to fetch documents from Dropbox
 router.get('/', async (req, res) => {
-  const accessToken = 'sl.B485CHhuPgoGQGqN5_SBOrykA6BMGLSJ8l2s_enlAcIZSDNs1tfrXuZGxoX7JeKEouy5IPDyCK7BzA6NSbGC0fw3cy_c1OPIlTi8ILpu7TSDwqJ6Upk3nOzGfFHTJe7M4t8zz83Eu_PjMHFesNLUhpI'; // Use environment variables for sensitive data
+  const accessToken = 'enter access token'; // Use environment variables for sensitive data
   const dbx = axios.create({
     baseURL: 'https://api.dropboxapi.com/2',
     headers: {
