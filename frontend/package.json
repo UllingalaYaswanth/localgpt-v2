@@ -9,12 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "2.0.18",
-    "@material-tailwind/react": "2.1.4",
+    "@heroicons/react": "^2.1.5",
+    "@material-tailwind/react": "^2.1.9",
     "apexcharts": "3.44.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "dropbox": "^10.34.0",
+    "lucide-react": "^0.414.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-apexcharts": "1.4.1",

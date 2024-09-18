@@ -44,7 +44,7 @@ export const routes = [
       },
       {
         icon: <ServerStackIcon {...icon} />,
-        name: "data sources",
+        name: "Resources",
         path: "/DataSource",
         element: <DataSource />,
       },

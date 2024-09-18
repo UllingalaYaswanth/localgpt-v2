@@ -2,7 +2,7 @@ import express from 'express';
 import { admin, jwt } from '../server.js';
 import upload from '../middleware/upload.js';
 import User from '../Models/userModel.js';
-
+import Session from '../Models/sessionModel.js';
 
 const router = express.Router();
 
@@ -36,7 +36,6 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
   }
 });
 
-// Route to login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -49,6 +48,22 @@ router.post('/login', async (req, res) => {
     if (!user) {
       throw new Error('User not found');
     }
+
+    // Set session data
+    req.session.userId = user._id;
+    req.session.email = user.emailAddress;
+    req.session.role = user.role;
+
+    // Create or update session record
+    const sessionId = req.sessionID;
+    const session = await Session.findOneAndUpdate(
+      { sessionId },
+      { userId: user._id, sessionId, startTime: new Date() },
+      { upsert: true, new: true }
+    );
+
+    // Log session ID and start time to console
+    console.log(`Session ID ${sessionId} started at ${session.startTime}`);
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
@@ -63,7 +78,7 @@ router.post('/login', async (req, res) => {
       }
     };
 
-    console.log('Login response data:', responseData);
+    console.log('Login response data:', responseData); // Log login response data
 
     res.status(200).json(responseData);
   } catch (error) {
@@ -72,6 +87,55 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+router.post('/logout', async (req, res) => {
+  if (req.session) {
+    try {
+      const endTime = new Date();
+      const sessionId = req.sessionID;
+
+      // Update the session record with endTime
+      await Session.findOneAndUpdate(
+        { sessionId, endTime: { $exists: false } },
+        { endTime },
+        { new: true }
+      );
+
+      // Log session ID and end time to console
+      console.log(`Session ID ${sessionId} logged out at ${endTime}`);
+
+      // Destroy session
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Failed to log out:', err);
+          return res.status(500).json({ error: 'Failed to log out' });
+        } else {
+          res.status(200).json({ message: 'Logged out successfully' });
+        }
+      });
+    } catch (error) {
+      console.error('Error logging out:', error.message);
+      console.error('Error stack:', error.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  } else {
+    res.status(200).json({ message: 'No active session' });
+  }
+});
+
+
+
+router.get('/sessions', async (req, res) => {
+  try {
+    const sessions = await Session.find({}, 'userId sessionId startTime endTime')
+      .populate('userId', 'firstName lastName');
+
+    res.status(200).json(sessions);
+  } catch (error) {
+    console.error('Error fetching sessions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 // Route to fetch all users
@@ -86,7 +150,6 @@ router.get('/', async (req, res) => {
 });
 
 // Example backend route to fetch user details based on email
-// backend/routes/users.js
 router.get('/api/users', async (req, res) => {
   const { email } = req.query;
   try {
@@ -109,7 +172,6 @@ router.get('/api/users', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 
 

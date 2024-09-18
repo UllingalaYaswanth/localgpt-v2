@@ -324,19 +324,141 @@
 // export default Sidebar;
 
 
+// import React from 'react';
+// import PropTypes from 'prop-types';
+// import { Menu, MenuHandler, MenuList, MenuItem, Button , Typography,} from '@material-tailwind/react';
+// import { XMarkIcon, PowerIcon } from "@heroicons/react/24/outline";
+// import { useAuth } from '../../AuthContext';
+// import { NavLink, useNavigate } from "react-router-dom";
+
+// const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleDelete, handleArchive }) => {
+//   const { logout } = useAuth();
+//   const navigate = useNavigate();
+
+//   const handleLogout = async () => {
+//     try {
+//       const response = await axios.post('http://localhost:5000/api/users/logout');
+//       if (response.status === 200) {
+//         // Clear any necessary data from local storage
+//         localStorage.removeItem("userEmail");
+//         logout()
+//         // Navigate to the login page
+//         navigate("/");
+//       } else {
+//         console.error('Failed to log out:', response.data.error);
+//       }
+//     } catch (error) {
+//       console.error('Error logging out:', error);
+//     }
+//   };
+
+
+//   return (
+//     <div className="bg-gray-200 w-64 h-full flex flex-col p-4">
+//       <div className="flex mt-3 flex-col items-center space-x-4">
+//         {/* <img src={user.image} alt="Logo" className="w-12 h-12 mb-3 ps-1 rounded" /> */}
+//         <h2 className="text-xl font-semibold">Hello! {`${user.name}`}</h2>
+//       </div>
+//       <Button className="mt-6 mb-4" color="lightBlue" onClick={handleNewChat}>New Chat</Button>
+//       <h3 className="text-xl font-semibold">History</h3>
+//       <div className="flex-1 overflow-y-auto mt-2">
+//         {history.map((chatHistory, index) => (
+//           <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-300" onClick={() => loadChat(chatHistory)}>
+//             <span>{chatHistory.name || `Chat ${index + 1}`}</span>
+//             <Menu>
+//               <MenuHandler>
+//                 <Button className="bg-transparent shadow-none px-2">
+//                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="black" className="w-5 h-4">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+//                   </svg>
+//                 </Button>
+//               </MenuHandler>
+//               <MenuList>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleRename(index); }}>Rename</MenuItem>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleDelete(index); }}>Delete</MenuItem>
+//                 <MenuItem onClick={(event) => { event.stopPropagation(); handleArchive(index); }}>Archive</MenuItem>
+//               </MenuList>
+//             </Menu>
+//           </div>
+//         ))}
+//       </div>
+//       <div className="m-4">
+//         <Button
+//           variant="gradient"
+//           color="white"
+//           className="flex items-center gap-4 px-10 capitalize"
+//           fullWidth
+//           onClick={handleLogout}
+//         >
+//           <PowerIcon className="h-5 w-5" />
+//           <Typography
+//             color="inherit"
+//             className="font-medium text-center capitalize"
+//           >
+//             Logout
+//           </Typography>
+//         </Button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// Sidebar.propTypes = {
+//   history: PropTypes.array.isRequired,
+//   user: PropTypes.object.isRequired,
+//   loadChat: PropTypes.func.isRequired,
+//   handleNewChat: PropTypes.func.isRequired,
+//   handleRename: PropTypes.func.isRequired,
+//   handleDelete: PropTypes.func.isRequired,
+//   handleArchive: PropTypes.func.isRequired
+// };
+
+// export default Sidebar;
+
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
+import { Menu, MenuHandler, MenuList, MenuItem, Button, Typography } from '@material-tailwind/react';
+import { XMarkIcon, PowerIcon, SquaresPlusIcon } from "@heroicons/react/24/outline"; // Importing SquaresPlusIcon here
+import { useAuth } from '../../AuthContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleDelete, handleArchive }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/logout');
+      if (response.status === 200) {
+        // Clear any necessary data from local storage
+        localStorage.removeItem("userEmail");
+        logout();
+        // Navigate to the login page
+        navigate("/");  // Ensure you navigate to the login route
+      } else {
+        console.error('Failed to log out:', response.data.error);
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
-    <div className="bg-gray-200 w-64 h-full flex flex-col p-4">
-      <div className="flex flex-col items-center space-x-4">
-        <img src={user.image} alt="Logo" className="w-12 h-12 mb-3 ps-1 rounded" />
-        <h2 className="text-xl font-semibold">{`${user.name}`}</h2>
+    <div className="bg-white w-80 h-full flex flex-col p-4">
+      <div className="flex mt-3  items-center space-x-4 justify-between">
+        {/* <img src={user.image} alt="Logo" className="w-12 h-12 mb-3 ps-1 rounded" /> */}
+        <h2 className="text-xl font-semibold">Hello! {`${user.name}`}</h2>
+        <button onClick={handleNewChat} className="focus:outline-none">
+          <SquaresPlusIcon className="h-6 w-6 text-gray-600" />
+        </button>
       </div>
-      <Button className="mt-6 mb-4" color="lightBlue" onClick={handleNewChat}>New Chat</Button>
-      <h3 className="text-xl font-semibold">History</h3>
+
+      <div className="flex justify-center items-center h-24">
+        <h3 className="text-xl font-semibold">History</h3>
+      </div>
+
       <div className="flex-1 overflow-y-auto mt-2">
         {history.map((chatHistory, index) => (
           <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-300" onClick={() => loadChat(chatHistory)}>
@@ -344,7 +466,7 @@ const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleD
             <Menu>
               <MenuHandler>
                 <Button className="bg-transparent shadow-none px-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="black" className="w-5 h-4">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 </Button>
@@ -357,6 +479,23 @@ const Sidebar = ({ history, user, loadChat, handleNewChat, handleRename, handleD
             </Menu>
           </div>
         ))}
+      </div>
+      <div className="m-2">
+        <Button
+          variant="gradient"
+          color="black"
+          className="flex items-center gap-4 px-10 capitalize"
+          fullWidth
+          onClick={handleLogout}
+        >
+          <PowerIcon className="h-5 w-5" />
+          <Typography
+            color="inherit"
+            className="font-medium text-center capitalize"
+          >
+            Logout
+          </Typography>
+        </Button>
       </div>
     </div>
   );
@@ -373,3 +512,4 @@ Sidebar.propTypes = {
 };
 
 export default Sidebar;
+

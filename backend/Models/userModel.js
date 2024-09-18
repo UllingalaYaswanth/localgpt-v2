@@ -9,9 +9,9 @@ const userSchema = new Schema({
   emailAddress: { type: String, required: true, unique: true },
   role: { type: String, enum: ['user', 'admin', 'developer'], default: 'user' },
   level: { type: Number, default: 1 },
-  profileImage: { type: String }, // Profile image URL or path
-  designation: { type: String }, // User's designation or job title
-});
+  profileImage: { type: String }, 
+  designation: { type: String }, 
+}, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 

@@ -25,7 +25,7 @@ import {
         {
           icon: <UserCircleIcon {...icon} />,
           name: "Documents",
-          path: "/acc",
+          path: "/documents",
           element: <Acc />,
         },
       ],

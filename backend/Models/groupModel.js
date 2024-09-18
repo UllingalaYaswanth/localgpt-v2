@@ -29,12 +29,7 @@ const groupSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-}, {
-  timestamps: {
-    createdAt: true, // Enable createdAt timestamp
-    updatedAt: false // Disable updatedAt timestamp
-  }
-});
+},{ timestamps: true });
 
 
 const Group = mongoose.model('Group', groupSchema);

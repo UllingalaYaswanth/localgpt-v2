@@ -708,7 +708,7 @@ export function Acc() {
                               variant="small"
                               color="blue-gray"
                               className="font-semibold cursor-pointer"
-                              onClick={() => navigateToProfile({
+                              onClick={() => navigateToProfile({         
                                 firstName,
                                 lastName,
                                 emailAddress,

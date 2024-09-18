@@ -50,7 +50,7 @@
 // PrivateRoute.jsx
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from './AuthContext.jsx'; // Adjust the import path as needed
+import { useAuth } from './AuthContext.jsx';
 
 const PrivateRoute = ({ allowedRoles }) => {
   const { isAuthenticated, userRole } = useAuth();
